@@ -246,4 +246,6 @@ YNYYN
 2
 ```
 
+https://habr.com/ru/post/112386
+
 ---
