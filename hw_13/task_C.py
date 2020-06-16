@@ -1,16 +1,13 @@
 # C. Площади
 
-from decimal import Decimal, getcontext
-
-MAX_COORD = 10e8
+MAX_COORD = 10e4
 MIN_AREA = 1e-8
-getcontext().prec = 16
 
 
 class Point:
     def __init__(self, x, y):
-        self.x = Decimal(x)
-        self.y = Decimal(y)
+        self.x = x
+        self.y = y
 
     def __repr__(self):
         return f'{self.x:.10f} {self.y:.10f}'
@@ -39,9 +36,9 @@ class Line:
             self.c = point_1.x * point_2.y - point_2.x * point_1.y
         elif len(args) == 4:
             x_1, y_1, x_2, y_2 = args
-            self.a = Decimal(y_1 - y_2)
-            self.b = Decimal(x_2 - x_1)
-            self.c = Decimal(x_1 * y_2 - x_2 * y_1)
+            self.a = y_1 - y_2
+            self.b = x_2 - x_1
+            self.c = x_1 * y_2 - x_2 * y_1
         else:
             raise ValueError
 
@@ -128,7 +125,7 @@ def main():
     finite_areas = []
     for polygon in polygons:
         for point in polygon.points:
-            if abs(point.x) == MAX_COORD or abs(point.y) == MAX_COORD:
+            if abs(abs(point.x) - MAX_COORD) < 1e-6 or abs(abs(point.y) - MAX_COORD) < 1e-6:
                 break
         else:
             finite_areas.append(polygon.get_area())
